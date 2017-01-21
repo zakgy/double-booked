@@ -37,7 +37,13 @@
 	"content_scripts": [
 	    {
 	      "matches": ["http://*/*", "https://*/*"],
-	      "js": ["myscript.js"],
+	      "js": [
+	      	"lib/jstz-1.0.4.min.js",
+      		"lib/jquery.min.js",
+      		"lib/moment+langs.min.js",
+	      	"myscript.js",
+	      	"utils.js"
+	      ],
 	      "run_at": "document_end"
 	    }
 	]
