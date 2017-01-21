@@ -1,0 +1,44 @@
+{
+	"manifest_version": 2,
+
+	"name": "Double Booked",
+	"description": "I will warn you when you're double booked",
+	"version": "1.0",
+	"key" : "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoMlRTFp24wA1qR8bojYAlCh9nXOkdmTmJllw0hZo43E2MVcuRkzdRuCQhQkZh9lH/UC9uJf/2ifItn5n78sj7Zf/MpY7UzzDDzp5150bQME4aJne4/9HFzjFSWu+5082+9RgprPXuZpt0p/zjFO0Z3fltT7eCP2t2egej397fKELommLliD9+ScFRUaMqQlfCI+U1zNZkMLDzs7s/386DNN0a6pdQ8crGjQgPC2qQZ3gRT+QvOc1feHxCAAvUE6HvzNn5YxaCd5/UsDMV2y20it1tDwVen4EPiaM+ss+Wds316izB496WOKUr96oMbDp/iFIIz22diBtjfGskD8e6wIDAQAB",
+
+
+	"oauth2": {
+    	"client_id": "597617101345-r75cgrvjuhnac84utetea29ac5jfg72v.apps.googleusercontent.com",
+    	"scopes": [
+      		"https://www.googleapis.com/auth/calendar"
+    	]
+  	},
+
+
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html"
+	},
+
+	"permissions": [
+		"contextMenus"
+	],
+
+	"background": {
+    	"scripts": [
+    		"lib/jstz-1.0.4.min.js",
+      		"lib/jquery.min.js",
+      		"lib/moment+langs.min.js",
+    		"background.js", 
+    		"utils.js"
+    	]
+  	},
+
+	"content_scripts": [
+	    {
+	      "matches": ["http://*/*", "https://*/*"],
+	      "js": ["myscript.js"],
+	      "run_at": "document_end"
+	    }
+	]
+}
