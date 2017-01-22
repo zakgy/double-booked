@@ -80,14 +80,10 @@ for (i in events) {
 			var normDate = new RegExp(events[i].month + tag + events[i].sday + tag + "at" + tag + events[i].stimeOLD, "g");
 			var dashDate = new RegExp(events[i].month + tag + events[i].sday + tag + "-" + tag + events[i].month + tag + events[i].eday, "g");
 			console.log(normDate);
-			document.body.innerHTML = document.body.innerHTML.replace(normDate, function myFunction(x){return "<mark>"+x+"</mark>";});
-			document.body.innerHTML = document.body.innerHTML.replace(dashDate, function myFunction(x){return "<mark>"+x+"</mark>";});
+			document.body.innerHTML = document.body.innerHTML.replace(normDate, function myFunction(x){return "<mark onmouseover='warningframe.js'>"+x+"</mark>";});
+			document.body.innerHTML = document.body.innerHTML.replace(dashDate, function myFunction(x){return "<mark onmouseover='warningframe.js'>"+x+"</mark>";});
 		}
 	}
-}
-
-function changeDate (date) {
-	document.body.innerHTML = document.body.innerHTML.replace(new RegExp (date,"g"), "<mark>".concat(date.concat("</mark>")));
 }
 
 function isBusy (event, calendarEvent) {
