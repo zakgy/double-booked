@@ -11,12 +11,12 @@ window.onload = function(){
             var reader = new FileReader();
             reader.onload = function(){
                 var data = reader.result;
-                alert(data);
+                //alert(data);
                 fields = $.parseJSON(data);
-                alert(fields);
+                //alert(fields);
                 // now send the message to the background
                 chrome.runtime.sendMessage({message: "import", fields: fields}, function(response) {
-                    console.log(response.response);
+                    alert("response sent");
                 });
             };
             reader.readAsText(file);
