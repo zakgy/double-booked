@@ -59,9 +59,8 @@ console.log(events);
 
 var temp = "January"
 var tag = "\\s?(<.{1,20}>)?\\s?";
-var text = new RegExp("January" + tag,"g");
-console.log(new RegExp(temp + tag));
-document.body.innerHTML = document.body.innerHTML.replace(text, "<mark>" + text + "</mark>");
+var text = new RegExp("January" + tag + "26" + tag + "at" + tag + "8 PM" + tag ,"g");
+//document.body.innerHTML = document.body.innerHTML.replace(text, function myFunction(x){return "<mark>"+x+"</mark>";});
 
 var dummyEvent = {year : 1997, month : "January", sday : 3, stime : 0, stimeOLD : 0, eday : 3, etime : 24};
 var matchingEvent = {year : 2017, month : "January", sday : 26, stime : 0, stimeOLD : 0, eday : 26, etime : 24};
@@ -78,8 +77,11 @@ for (i in events) {
 	for (j in calendar) {
 		if (isBusy (events[i], calendar[j])) {
 			console.log(i);
-			var normDate = new RegExp(event.month + /\s/ + events.sday + /(\sat)?\s/ + events.stimeOLD + /\s?[A-z]{1,2}/, "g");
-			document.body.innerHTML = document.body.innerHTML.replace(normDate, "<mark>" + normDate + "</mark>");
+			var normDate = new RegExp(events[i].month + tag + events[i].sday + tag + "at" + tag + events[i].stimeOLD, "g");
+			var dashDate = new RegExp(events[i].month + tag + events[i].sday + tag + "-" + tag + events[i].month + tag + events[i].eday, "g");
+			console.log(normDate);
+			document.body.innerHTML = document.body.innerHTML.replace(normDate, function myFunction(x){return "<mark>"+x+"</mark>";});
+			document.body.innerHTML = document.body.innerHTML.replace(dashDate, function myFunction(x){return "<mark>"+x+"</mark>";});
 		}
 	}
 }
