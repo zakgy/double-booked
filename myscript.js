@@ -24,10 +24,10 @@ for (j in eventIndexes) {
 		if (allWords[Number(eventIndexes[j])+2] == "at") {
 			var _month = allWords[eventIndexes[j]];
 			var _day = allWords[Number(eventIndexes[j])+1];
-			var _time = allWords[Number(eventIndexes[j])+3];
+			var _oldtime = allWords[Number(eventIndexes[j])+3];
 
 			if ((allWords[Number(eventIndexes[j]) + 4]) === ("PM"))
-				_time = Number(_time) + 12;
+				_time = Number(_oldtime) + 12;
 
 			var _w = 5;
 
@@ -40,7 +40,7 @@ for (j in eventIndexes) {
 			else
 				_etime = Number(_time) + 2;
 
-			var event = {year : _year, month : _month, sday : _day, stime : _time, eday : _day, etime : _etime, wordLength : _w, index : j};
+			var event = {year : _year, month : _month, sday : _day, stime : _time, stimeOLD : _oldtime, eday : _day, etime : _etime, wordLength : _w, index : j};
 			events.push(event);
 		}
 		// format: month day "-" month day
@@ -57,8 +57,15 @@ for (j in eventIndexes) {
 console.log(events);
 
 
-var dummyEvent = {year : 1997, month : "January", sday : 3, stime : 0, eday : 3, etime : 24, wordLength : -1, index : -1};
-var calendar = [dummyEvent];
+var temp = "January"
+var tag = "\\s?(<.{1,20}>)?\\s?";
+var text = new RegExp("January" + tag,"g");
+console.log(new RegExp(temp + tag));
+document.body.innerHTML = document.body.innerHTML.replace(text, "<mark>" + text + "</mark>");
+
+var dummyEvent = {year : 1997, month : "January", sday : 3, stime : 0, stimeOLD : 0, eday : 3, etime : 24};
+var matchingEvent = {year : 2017, month : "January", sday : 26, stime : 0, stimeOLD : 0, eday : 26, etime : 24};
+var calendar = {dummyEvent, matchingEvent};
 
 /*
 if (isBusy(events[2], calendar[0]))
@@ -70,18 +77,22 @@ else
 for (i in events) {
 	for (j in calendar) {
 		if (isBusy (events[i], calendar[j])) {
-			
+			console.log(i);
+			var normDate = new RegExp(event.month + /\s/ + events.sday + /(\sat)?\s/ + events.stimeOLD + /\s?[A-z]{1,2}/, "g");
+			document.body.innerHTML = document.body.innerHTML.replace(normDate, "<mark>" + normDate + "</mark>");
 		}
 	}
 }
 
-
+function changeDate (date) {
+	document.body.innerHTML = document.body.innerHTML.replace(new RegExp (date,"g"), "<mark>".concat(date.concat("</mark>")));
+}
 
 function isBusy (event, calendarEvent) {
 	if (event.year == calendarEvent.year && event.month == calendarEvent.month) {
-		//console.log("clears y/m");
+		console.log(event.month);
 		if (isOverlap(event.sday, event.eday, calendarEvent.sday, calendarEvent.eday)) {
-			//console.log("clears d");
+			console.log(event.sday);
 			if (isOverlap(event.stime, event.etime, calendarEvent.stime, calendarEvent.etime))
 				return true;
 		}
