@@ -8,7 +8,7 @@ class UnEvent:
     eday = 0
     etime = 0
     year = 0
-
+    stimeOLD= 0
     def __init__(self, start):
         self.start = start
 
@@ -48,23 +48,36 @@ class UnEvent:
         self.sday = int(splitTemp[0][6:8])
         if len(splitTemp) > 1:
             self.stime = int(splitTemp[1][:2])
+            time = self.stime - 5
+            if time < 0:
+                time += 24
+                self.sday -= 1
+            self.stime = time
+            if self.stime > 12:
+                self.stimeOLD = time-12
+            else:
+                self.stimeOLD = time
         splitTemp = self.end.split('T')
         self.eday = int(splitTemp[0][6:8])
         if len(splitTemp) > 1:
             self.etime = int(splitTemp[1][:2])
-
+            time = self.etime - 5
+            if time < 0:
+                time += 24
+                self.eday -= 1
+            self.etime = time
     def __str__(self):
         result = ""
         result += "{year :"
         result += str(self.year)
-        result += ", month : "
+        result += ', month : "'
         result += self.month
-        result += ", sday : " + str(self.sday) + ", stime : " + str(self.stime) + ", stimeOLD : 0, eday : "
+        result += '", sday : ' + str(self.sday) + ", stime : " + str(self.stime) + ', stimeOLD : ' + str(self.stimeOLD) + ', eday : '
         result += str(self.eday) + ", etime : " + str(self.etime) + "}"
         return result
 def Parser():
     file = input("Filename: ")
-    raw = open(file, 'r')
+    raw = open("hack.ics", 'r')
     case = 1
     events = []
     newevents = []
@@ -80,12 +93,12 @@ def Parser():
                 case = 2
         elif case == 2:
             splitLine = line.split(';')
-            if splitLine[0] == 'DTSTART':
+            if splitLine[0] == 'DTSTART' or  line.split(':')[0] == 'DTSTART':
                 case = 3
                 events.append(line.split(':')[1])
         elif case == 3:
             splitLine = line.split(';')
-            if splitLine[0] == 'DTEND':
+            if splitLine[0] == 'DTEND'or line.split(':')[0] == 'DTEND':
                 case = 4
                 events.append(line.split(':')[1])
         elif case == 4:
@@ -104,8 +117,8 @@ def Parser():
         event.parseSelf()
     return newevents
 events = Parser()
-result = "{"
+result = "["
 for event in events:
     result += str(event) + ", "
-result = result[:len(result)-2] + "}"
+result = result[:len(result)-2] + "];"
 print(result)

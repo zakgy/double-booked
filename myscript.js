@@ -56,22 +56,13 @@ for (j in eventIndexes) {
 
 console.log(events);
 
-
-var temp = "January"
 var tag = "\\s?(<.{1,20}>)?\\s?";
-var text = new RegExp("January" + tag + "26" + tag + "at" + tag + "8 PM" + tag ,"g");
-//document.body.innerHTML = document.body.innerHTML.replace(text, function myFunction(x){return "<mark>"+x+"</mark>";});
 
-var dummyEvent = {year : 1997, month : "January", sday : 3, stime : 0, stimeOLD : 0, eday : 3, etime : 24};
 var matchingEvent = {year : 2017, month : "January", sday : 26, stime : 0, stimeOLD : 0, eday : 26, etime : 24};
-var calendar = {dummyEvent, matchingEvent};
 
-/*
-if (isBusy(events[2], calendar[0]))
-	console.log("conflict");
-else
-	console.log("good");
-*/
+var calendar = [{year :2017, month : "January", sday : 26, stime : 18, stimeOLD : 6, eday : 26, etime : 21}, {year :2017, month : "February", sday : 4, stime : 0, stimeOLD : 0, eday : 5, etime : 0}, {year :2017, month : "January", sday : 23, stime : 0, stimeOLD : 0, eday : 24, etime : 0}, {year :2017, month : "January", sday : 24, stime : 10, stimeOLD : 10, eday : 24, etime : 15}, {year :2017, month : "January", sday : 25, stime : 12, stimeOLD : 12, eday : 25, etime : 16}, {year :2017, month : "January", sday : 29, stime : 9, stimeOLD : 9, eday : 29, etime : 13}, {year :2017, month : "January", sday : 27, stime : 11, stimeOLD : 11, eday : 27, etime : 14}, {year :2017, month : "January", sday : 26, stime : 9, stimeOLD : 9, eday : 26, etime : 11}, {year :2017, month : "January", sday : 22, stime : 0, stimeOLD : 0, eday : 23, etime : 0}, {year :2017, month : "January", sday : 28, stime : 14, stimeOLD : 2, eday : 28, etime : 18}, {year :2017, month : "January", sday : 30, stime : 5, stimeOLD : 5, eday : 30, etime : 7}, {year :2017, month : "February", sday : 2, stime : 7, stimeOLD : 7, eday : 2, etime : 14}, {year :2017, month : "February", sday : 1, stime : 12, stimeOLD : 12, eday : 1, etime : 18}, {year :2017, month : "January", sday : 30, stime : 14, stimeOLD : 2, eday : 30, etime : 17}, {year :2017, month : "January", sday : 31, stime : 9, stimeOLD : 9, eday : 31, etime : 14}, {year :2017, month : "February", sday : 3, stime : 6, stimeOLD : 6, eday : 3, etime : 13}, {year :2017, month : "January", sday : 29, stime : 15, stimeOLD : 3, eday : 29, etime : 20}];
+//calendar.push(matchingEvent);
+
 
 for (i in events) {
 	for (j in calendar) {
