@@ -52,6 +52,6 @@ function validDate (text) {
     event = utils.processEvent(event);
 
     return event;
-    
+
   }
 }

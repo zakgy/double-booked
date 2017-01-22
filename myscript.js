@@ -130,7 +130,7 @@ function findMonthNum(monthName) {
     return 10;
   else if (monthName == "December")
     return 11;
-  else 
+  else
     return -1;
 };
 
