@@ -80,8 +80,8 @@ for (i in events) {
 			var normDate = new RegExp(events[i].month + tag + events[i].sday + tag + "at" + tag + events[i].stimeOLD, "g");
 			var dashDate = new RegExp(events[i].month + tag + events[i].sday + tag + "-" + tag + events[i].month + tag + events[i].eday, "g");
 			console.log(normDate);
-			document.body.innerHTML = document.body.innerHTML.replace(normDate, function myFunction(x){return "<mark onmouseover='warningframe.js'>"+x+"</mark>";});
-			document.body.innerHTML = document.body.innerHTML.replace(dashDate, function myFunction(x){return "<mark onmouseover='warningframe.js'>"+x+"</mark>";});
+			document.body.innerHTML = document.body.innerHTML.replace(normDate, function myFunction(x){return "<div style=\"border: 3px solid orange; border-radius: 5px; background-color: lightgrey;\">"+x+"</div>";});
+			document.body.innerHTML = document.body.innerHTML.replace(dashDate, function myFunction(x){return "<div style=\"border: 3px solid orange; border-radius: 5px; background-color: lightgrey;\">"+x+"</div>";});
 		}
 	}
 }
