@@ -4,7 +4,7 @@ var doc = document.body.innerText;
 
 allWords = doc.split (/\s|\n|,/);
 
-console.log(allWords);
+//console.log(allWords);
 
 var eventIndexes = [];
 var events = [];
@@ -15,10 +15,12 @@ for (i in allWords) {
 	}
 }
 
-console.log (eventIndexes);
+//console.log (eventIndexes);
 
 for (j in eventIndexes) {
+	// check for valid formats
 	if (allWords[Number(eventIndexes[j])+1] == parseInt(allWords[Number(eventIndexes[j])+1], 10)){
+		// format: month day "at" time AM/PM
 		if (allWords[Number(eventIndexes[j])+2] == "at") {
 			var _month = allWords[eventIndexes[j]];
 			var _day = allWords[Number(eventIndexes[j])+1];
@@ -26,29 +28,73 @@ for (j in eventIndexes) {
 
 			if ((allWords[Number(eventIndexes[j]) + 4]) === ("PM"))
 				_time = Number(_time) + 12;
-			
+
+			var _w = 5;
+
 			if ((allWords[Number(eventIndexes[j]) + 5]) === ("-")) {
 				_etime = allWords[Number(eventIndexes[j])+6];
 				if ((allWords[Number(eventIndexes[j]) + 7]) === ("PM"))
 					_etime = Number(_etime) + 12;
+				_w += 3;
 			}
 			else
 				_etime = Number(_time) + 2;
 
-			var event = {year : _year, month : _month, sday : _day, stime : _time, eday : _day, etime : _etime};
+			var event = {year : _year, month : _month, sday : _day, stime : _time, eday : _day, etime : _etime, wordLength : _w, index : j};
 			events.push(event);
 		}
+		// format: month day "-" month day
 		else if (allWords[Number(eventIndexes[j])+2] == "-") {
 			var _month = allWords[eventIndexes[j]];
 			var _day = allWords[Number(eventIndexes[j])+1];
 			var _eday = allWords[Number(eventIndexes[j])+4];
-			var event = {year : _year, month : _month, sday : _day, stime : 0, eday : _eday, etime : 24};
+			var event = {year : _year, month : _month, sday : _day, stime : 0, eday : _eday, etime : 24, wordLength : 5, index : j};
 			events.push(event);
 		}
 	}
 }
 
 console.log(events);
+
+
+var dummyEvent = {year : 1997, month : "January", sday : 3, stime : 0, eday : 3, etime : 24, wordLength : -1, index : -1};
+var calendar = [dummyEvent];
+
+/*
+if (isBusy(events[2], calendar[0]))
+	console.log("conflict");
+else
+	console.log("good");
+*/
+
+for (i in events) {
+	for (j in calendar) {
+		if (isBusy (events[i], calendar[j])) {
+			
+		}
+	}
+}
+
+
+
+function isBusy (event, calendarEvent) {
+	if (event.year == calendarEvent.year && event.month == calendarEvent.month) {
+		//console.log("clears y/m");
+		if (isOverlap(event.sday, event.eday, calendarEvent.sday, calendarEvent.eday)) {
+			//console.log("clears d");
+			if (isOverlap(event.stime, event.etime, calendarEvent.stime, calendarEvent.etime))
+				return true;
+		}
+	}
+	return false;
+}
+
+function isOverlap (x1, x2, y1, y2) {
+	if (x2 < y1 || x1 > y2)
+		return false;
+	else
+		return true;
+}
 
 function findMonthNum(monthName) {
   if (monthName == "January")
